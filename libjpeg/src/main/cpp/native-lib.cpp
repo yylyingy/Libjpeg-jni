@@ -5,7 +5,7 @@
 
 extern "C" {
 jstring
-Java_com_yangyl_testlibjpeg_MainActivity_stringFromJNI(
+Java_com_yangyl_libjpeg_JpegDecCompress_stringFromJNI(
         JNIEnv *env,
         jobject /* this */) {
     struct jpeg_compress_struct jcs;
@@ -23,7 +23,7 @@ void my_error_exit (j_common_ptr cinfo)
 }
 
 jbyteArray
-Java_com_yangyl_testlibjpeg_MainActivity_decodeJpeg(
+Java_com_yangyl_libjpeg_JpegDecCompress_decodeJpeg(
         JNIEnv *env,
         jobject ,
         jbyteArray jpeg_buff_in,
@@ -107,6 +107,5 @@ Java_com_yangyl_testlibjpeg_MainActivity_decodeJpeg(
     free((void *) rgb_buffer);
     env->ReleaseByteArrayElements(jpeg_buff_in, (jbyte *) jpeg_buffer, 0);
     return rgb_byte;
-
 }
 }

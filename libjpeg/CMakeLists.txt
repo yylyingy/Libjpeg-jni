@@ -23,7 +23,7 @@ add_library( # Sets the name of the library.
 
 add_library( libjpeg SHARED IMPORTED )
 set_target_properties(libjpeg  PROPERTIES IMPORTED_LOCATION
-D:/Android/WorkSpaseForAS/TestLibjpeg/app/libs/${ANDROID_ABI}/libjpeg.so)
+D:/Android/WorkSpaseForAS/TestLibjpeg/libjpeg/libs/${ANDROID_ABI}/libjpeg.so)
 
 # Searches for a specified prebuilt library and stores the path as a
 # variable. Because system libraries are included in the search path by

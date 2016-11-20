@@ -17,7 +17,7 @@
 
 /* Include auto-config file to find out which system include files we need. */
 
-#include "../src/main/cpp/jconfig.h"
+#include "jconfig.h"
 #define JCONFIG_INCLUDED	/* so that jpeglib.h doesn't do it again */
 
 /*

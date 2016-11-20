@@ -12,6 +12,8 @@ import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.yangyl.libjpeg.JpegDecCompress;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -29,11 +31,12 @@ public class MainActivity extends AppCompatActivity {
     Bitmap mBitmap = BitmapFactory.decodeFile("");
     byte [] jpeg;
     ImageView iv;
+    JpegDecCompress libjpeg;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        libjpeg = new JpegDecCompress();
         if (Build.VERSION.SDK_INT >= 23){
             if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) !=
                     PackageManager.PERMISSION_GRANTED){
@@ -62,20 +65,24 @@ public class MainActivity extends AppCompatActivity {
         }
         // Example of a call to a native method
         TextView tv = (TextView) findViewById(R.id.sample_text);
-        tv.setText(stringFromJNI());
-        new Thread() {
-            @Override
-            public void run() {
-                for( int i = 0;true;i++){
-                    byte[] rgb = decodeJpeg(jpeg, jpeg.length);
-                    byte [] a = new byte[1024 * 10240];
-                    a[0] = 0;
-                    Bitmap bitmap = createMyBitmap(rgb, 1080, 1920);
-                }
-            }
-        }.start();
-        byte[] rgb = decodeJpeg(jpeg, jpeg.length);
+        tv.setText(libjpeg.stringFromJNI());
+//        new Thread() {
+//            @Override
+//            public void run() {
+//                for( int i = 0;true;i++){
+//                    byte[] rgb = decodeJpeg(jpeg, jpeg.length);
+//                    byte [] a = new byte[1024 * 10240];
+//                    a[0] = 0;
+//                    Bitmap bitmap = createMyBitmap(rgb, 1080, 1920);
+//                }
+//            }
+//        }.start();
+        byte[] rgb = libjpeg.decodeJpeg(jpeg, jpeg.length);
+        ByteBuffer byteBuffer = ByteBuffer.wrap(rgb);
+        byteBuffer.flip();
         Bitmap bitmap = createMyBitmap(rgb, 1080, 1920);
+//        Bitmap bitmap1 = Bitmap.createBitmap(1080,1920, Bitmap.Config.ARGB_8888);
+//        bitmap1.copyPixelsFromBuffer(byteBuffer);
         iv.setImageBitmap(bitmap);
 
     }
@@ -145,10 +152,5 @@ public class MainActivity extends AppCompatActivity {
 
         return color;
     }
-    /**
-     * A native method that is implemented by the 'native-lib' native library,
-     * which is packaged with this application.
-     */
-    public native String stringFromJNI();
-    public native byte [] decodeJpeg(byte[] jpeg,int length);
+
 }

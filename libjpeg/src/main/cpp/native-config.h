@@ -8,8 +8,8 @@ extern "C" {
 #include "setjmp.h"
 #include "jpeglib.h"
 #include "jconfig.h"
+#include "cdjpeg.h"
 //#include "jmorecfg.h"
-#include "../../../libs/cdjpeg.h"
 
 
 struct my_error_mgr {
