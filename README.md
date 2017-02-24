@@ -1,0 +1,2 @@
+# TestLibjpeg-jni
+Android端使用libjpeg开源c库进行图片的解码显示
